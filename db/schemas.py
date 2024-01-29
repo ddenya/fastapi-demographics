@@ -42,7 +42,7 @@ class PersonDisplay(BaseModel):
   gender: str
   email: str
   nation: str
-  houses = List[House]
+  houses : List[House] = []
   class Config():
     orm_mode=True
 
@@ -53,7 +53,7 @@ class HouseBase(BaseModel):
   unit: str
   zipcode: int
   acquisition_date: int
-  year_built = int
+  year_built : int
 
 class HouseDisplay(BaseModel):
   city: str
@@ -62,7 +62,7 @@ class HouseDisplay(BaseModel):
   unit: str
   zipcode: int
   acquisition_date: int
-  year_built = int
-  owners = List[Person]
+  year_built : int
+  owners : List[Person] = []
   class Config():
     orm_mode=True
