@@ -4,9 +4,12 @@ from sqlalchemy.sql.sqltypes import Integer, String, Boolean, Double
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
 
-class DbUser(Base):
+class DbHouse(Base):
   __tablename__ = 'houses'
   id = Column(Integer, primary_key=True, index=True)
-  address = Column(String)
-  postcode = Column(String)
-  area = Column(Double)
+  city = Column(String)
+  street = Column(String)
+  number_and_unit = Column(String)
+  zipcode = Column(Integer)
+  acquisition_date = Column(Integer)
+  year_built = Column(Integer)
