@@ -14,3 +14,4 @@ class DbHouse(Base):
   zipcode = Column(Integer)
   acquisition_date = Column(Integer)
   year_built = Column(Integer)
+  owners = relationship('DbPerson', secondary='association', back_populates='houses')

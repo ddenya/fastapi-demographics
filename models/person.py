@@ -12,3 +12,4 @@ class DbPerson(Base):
   gender = Column(String)
   email = Column(String)
   nation = Column(String)
+  houses = relationship('DbHouse', secondary='association', back_populates='owners')
