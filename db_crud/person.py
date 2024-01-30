@@ -4,7 +4,6 @@ from db.schemas import PersonBase
 from db.hash import Hash
 
 def create_person(request: PersonBase, db: Session):
-  print(request)
   new_person = DbPerson(
     name = request.name,
     age = request.age,
