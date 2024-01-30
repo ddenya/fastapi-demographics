@@ -1,3 +1,4 @@
+from fastapi import HTTPException, status
 from sqlalchemy.orm.session import Session
 from models.user import DbUser
 from models.schemas import UserBase
@@ -22,10 +23,13 @@ def get_all_users(db: Session):
     pass
 
 def get_user(id: int, db: Session):
-  try:
-    return db.query(DbUser).filter(DbUser.id == id).first()
-  except Exception as e:
-    pass
+    user = db.query(DbUser).filter(DbUser.id == id).first()
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with id {id} not found"
+        )
+    return user
 
 def update_user(id: int, request: UserBase, db: Session):
   try:
