@@ -37,6 +37,7 @@ class PersonBase(BaseModel):
   nation: str
 
 class PersonDisplay(BaseModel):
+  id: int
   name: str
   age: str
   gender: str
@@ -54,6 +55,8 @@ class HouseBase(BaseModel):
   zipcode: int
   acquisition_date: int
   year_built : int
+  # When creating a house, tying to a List[person.id]
+  owner_ids : List[int]
 
 class HouseDisplay(BaseModel):
   city: str
