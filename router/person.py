@@ -1,5 +1,5 @@
 from typing import List
-from db.schemas import PersonBase, PersonDisplay
+from models.schemas import PersonBase, PersonDisplay
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from db.db_connector import get_db

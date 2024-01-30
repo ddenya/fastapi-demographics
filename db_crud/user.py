@@ -1,6 +1,6 @@
 from sqlalchemy.orm.session import Session
 from models.user import DbUser
-from db.schemas import UserBase
+from models.schemas import UserBase
 from db.hash import Hash
 
 def create_user(request: UserBase, db: Session):

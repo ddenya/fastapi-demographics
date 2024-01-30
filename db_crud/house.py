@@ -1,7 +1,7 @@
 import traceback
 from sqlalchemy.orm.session import Session
 from models.house import DbHouse
-from db.schemas import HouseBase
+from models.schemas import HouseBase
 
 def create_house(request: HouseBase, db: Session):
   # print(request)
