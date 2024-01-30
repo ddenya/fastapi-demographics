@@ -12,8 +12,9 @@ def create_house(request: HouseBase, db: Session):
     unit = request.unit,
     zipcode = request.zipcode,
     acquisition_date = request.acquisition_date,
-    year_built = request.year_built
-  )
+    year_built = request.year_built  
+    )
+  new_house.add_owners_by_ids(request.owner_ids, session = db)
 
   db.add(new_house)
   db.commit()
