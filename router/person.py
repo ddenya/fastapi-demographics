@@ -16,12 +16,12 @@ def create_person(request: PersonBase, db: Session= Depends(get_db)):
     return db_person.create_person(request, db)
 
 # Get 
-@router.get('/{id}', response_model=PersonBase)
+@router.get('/{id}', response_model=PersonDisplay)
 def get_person(id: int, db: Session = Depends(get_db)):
     return db_person.get_person(id, db)
 
 # Update
-@router.post('/{id}')
+@router.post('/{id}', response_model=PersonDisplay)
 def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
     return db_person.update_person(id, request, db)
 
