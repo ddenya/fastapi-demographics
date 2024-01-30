@@ -20,6 +20,11 @@ def create_person(request: PersonBase, db: Session= Depends(get_db)):
 def get_person(id: int, db: Session = Depends(get_db)):
     return db_person.get_person(id, db)
 
+# Get all
+@router.get('/', response_model=List[PersonDisplay])
+def get_all_people(db: Session = Depends(get_db)):
+    return db_person.get_all_people(db)
+
 # Update
 @router.post('/{id}', response_model=PersonDisplay)
 def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
