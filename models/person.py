@@ -3,7 +3,6 @@ from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, Boolean
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
-from models.associations import people_houses
 
 class DbPerson(Base):
   __tablename__ = 'person'
