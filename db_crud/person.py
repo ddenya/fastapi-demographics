@@ -1,7 +1,6 @@
 from sqlalchemy.orm.session import Session
-from models.house import DbPerson
+from models.person import DbPerson
 from db.schemas import PersonBase
-from db.hash import Hash
 
 def create_person(request: PersonBase, db: Session):
   new_person = DbPerson(
