@@ -35,7 +35,6 @@ def get_house(id: int, db: Session):
     return {}
 
 def update_house(id: int, request: HouseBase, db: Session):
-  print(request)
   try:
     # TODO: conversion to str if we pass int? "424242"?
     house = get_house(id, db)
