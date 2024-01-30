@@ -2,7 +2,6 @@ import traceback
 from sqlalchemy.orm.session import Session
 from models.house import DbHouse
 from db.schemas import HouseBase
-from db.hash import Hash
 
 def create_house(request: HouseBase, db: Session):
   # print(request)
