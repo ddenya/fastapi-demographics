@@ -3,6 +3,8 @@ from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, Boolean, Double
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
+from models.associations import people_houses
+from models.person import DbPerson
 
 class DbHouse(Base):
   __tablename__ = 'houses'
@@ -14,4 +16,4 @@ class DbHouse(Base):
   zipcode = Column(Integer)
   acquisition_date = Column(Integer)
   year_built = Column(Integer)
-  owners = relationship('DbPerson', secondary='association', back_populates='houses')
+  owners = relationship('DbPerson', secondary='people_houses', back_populates='houses')
