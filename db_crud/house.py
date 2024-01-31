@@ -31,6 +31,7 @@ def get_all_houses(db: Session):
 def get_house(id: int, db: Session):
   try:
     return db.query(DbHouse).filter(DbHouse.id == id).first()
+  # Exception on database level
   except Exception as e:
     print(e)
     return {}
@@ -43,6 +44,9 @@ def update_house(id: int, request: HouseBase, db: Session):
     house.street = request.street
     house.number = request.number
     house.unit = request.unit
+
+    house.add_owners_by_ids(request.owner_ids, session = db)
+
     db.commit()
     return house
   except Exception as e:
