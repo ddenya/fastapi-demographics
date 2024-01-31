@@ -1,4 +1,5 @@
 from typing import List
+from fastapi.responses import JSONResponse
 from models.schemas import UserBase, UserDisplay
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -23,7 +24,13 @@ def get_all_users(db: Session=Depends(get_db)):
 # Read one user 
 @router.get('/{id}', response_model=UserDisplay)
 def get_user(id: int, db: Session=Depends(get_db)):
-  return db_user.get_user(id, db)
+  ret = db_user.get_user(id,db)
+  if ret is None:
+    return JSONResponse(
+        status_code=404,
+        content={"message": f'User with {id} not found'},
+    )
+  return ret
 
 # Update
 @router.post('/{id}', response_model=UserDisplay)
