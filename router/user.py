@@ -35,7 +35,13 @@ def get_user(id: int, db: Session=Depends(get_db)):
 # Update
 @router.post('/{id}', response_model=UserDisplay)
 def update_user(id: int, request: UserBase, db: Session=Depends(get_db)):
-  return db_user.update_user(id, request, db)
+  ret = db_user.update_user(id, request, db)
+  if ret is None:
+    return JSONResponse(
+        status_code=404,
+        content={"message": f'User with {id} not found'},
+    )
+  return ret
 
 # Delete
 @router.delete('/{id}')

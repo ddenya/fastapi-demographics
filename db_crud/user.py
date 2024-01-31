@@ -37,7 +37,7 @@ def update_user(id: int, request: UserBase, db: Session):
     db.commit()
     return user
   except Exception as e:
-    return {'result': False} 
+    return None 
 
 def delete_user(id: int, db: Session):
   try:
