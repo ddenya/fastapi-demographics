@@ -59,6 +59,7 @@ class HouseBase(BaseModel):
   owner_ids : List[int]
 
 class HouseDisplay(BaseModel):
+  id: int
   city: str
   street: str
   number: str
