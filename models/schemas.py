@@ -35,6 +35,8 @@ class PersonBase(BaseModel):
   gender: str
   email: str
   nation: str
+  houses_ids: List[int]
+
 
 class PersonDisplay(BaseModel):
   id: int
