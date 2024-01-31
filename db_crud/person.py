@@ -10,6 +10,7 @@ def create_person(request: PersonBase, db: Session):
     email = request.email,
     nation = request.nation,
   )
+  new_person.add_houses_by_ids(request.houses_ids, session = db)
   db.add(new_person)
   db.commit()
   db.refresh(new_person)
@@ -37,10 +38,11 @@ def update_person(id: int, request: PersonBase, db: Session):
     person.gender = request.gender
     person.email = request.email
     person.nation = request.nation
+    person.add_houses_by_ids(request.houses_ids, session = db)
     db.commit()
     return person
   except Exception as e:
-    return {'result': False} 
+    return {'result': False}
 
 def delete_person(id: int, db: Session):
   # TODO
