@@ -32,6 +32,8 @@ def get_person(id: int, db: Session):
 def update_person(id: int, request: PersonBase, db: Session):
   try:
     person = get_person(id, db)
+    if person is None:
+      return None
     person.name = request.name
     person.age = request.age
     person.gender = request.gender
