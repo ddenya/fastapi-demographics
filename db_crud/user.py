@@ -46,4 +46,4 @@ def delete_user(id: int, db: Session):
     db.commit()
     return {'result': True}
   except Exception as e:
-    return {'result': False} 
+    return None 
