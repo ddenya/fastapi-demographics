@@ -25,7 +25,8 @@ def get_user(id: int, db: Session):
   try:
     return db.query(DbUser).filter(DbUser.id == id).first()
   except Exception as e:
-    pass
+    return None
+
 
 def update_user(id: int, request: UserBase, db: Session):
   try:
