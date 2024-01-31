@@ -34,12 +34,14 @@ def get_house(id: int, db: Session):
   # Exception on database level
   except Exception as e:
     print(e)
-    return {}
+    return None
 
 def update_house(id: int, request: HouseBase, db: Session):
   try:
     # TODO: conversion to str if we pass int? "424242"?
     house = get_house(id, db)
+    if house is None:
+      return None
     house.city = request.city
     house.street = request.street
     house.number = request.number
