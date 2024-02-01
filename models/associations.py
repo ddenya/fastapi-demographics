@@ -8,3 +8,12 @@ people_houses = Table(
     Column('person_id', Integer, ForeignKey('person.id')),
     Column('house_id', Integer, ForeignKey('houses.id'))
 )
+
+
+people_cars = Table(
+    'people_cars',
+    Base.metadata,
+    Column('id', Integer, primary_key=True),
+    Column('person_id', Integer, ForeignKey('person.id')),
+    Column('car_id', Integer, ForeignKey('cars.id'))
+)
