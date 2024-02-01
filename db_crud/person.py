@@ -20,14 +20,12 @@ def get_all_people(db: Session):
   try:
     return db.query(DbPerson).all()
   except Exception as e:
-    print(e)
-    return {}
+    return None
 
 def get_person(id: int, db: Session):
   try:
     return db.query(DbPerson).filter(DbPerson.id == id).first()
   except Exception as e:
-    print(e)
     return None
 
 def update_person(id: int, request: PersonBase, db: Session):
@@ -45,8 +43,8 @@ def update_person(id: int, request: PersonBase, db: Session):
     db.commit()
     return person
   except Exception as e:
-    return {'result': False}
+    return None
 
 def delete_person(id: int, db: Session):
   # TODO
-  return False
+  return None

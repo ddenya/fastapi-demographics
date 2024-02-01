@@ -19,7 +19,7 @@ def get_all_users(db: Session):
   try:
     return db.query(DbUser).all()
   except Exception as e:
-    pass
+    return None
 
 def get_user(id: int, db: Session):
   try:
@@ -44,6 +44,6 @@ def delete_user(id: int, db: Session):
     user = get_user(id, db)
     db.delete(user)
     db.commit()
-    return {'result': True}
+    return True
   except Exception as e:
     return None 

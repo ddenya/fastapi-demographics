@@ -4,7 +4,6 @@ from models.house import DbHouse
 from models.schemas import HouseBase
 
 def create_house(request: HouseBase, db: Session):
-  # print(request)
   new_house = DbHouse(
     city = request.city,
     street = request.street,
@@ -25,15 +24,13 @@ def get_all_houses(db: Session):
   try:
     return db.query(DbHouse).all()
   except Exception as e:
-    print(e)
-    return {}
+    return None
 
 def get_house(id: int, db: Session):
   try:
     return db.query(DbHouse).filter(DbHouse.id == id).first()
   # Exception on database level
   except Exception as e:
-    print(e)
     return None
 
 def update_house(id: int, request: HouseBase, db: Session):
@@ -52,9 +49,8 @@ def update_house(id: int, request: HouseBase, db: Session):
     db.commit()
     return house
   except Exception as e:
-    traceback.print_exception(e)
-    return {'result': False} 
+    return None 
 
 def delete_user(id: int, db: Session):
   # TODO
-  return False
+  return None

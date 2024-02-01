@@ -23,15 +23,13 @@ def get_all_cars(db: Session):
   try:
     return db.query(DbCar).all()
   except Exception as e:
-    print(e)
-    return {}
+    return None
 
 def get_car(id: int, db: Session):
   try:
     return db.query(DbCar).filter(DbCar.id == id).first()
   # Exception on database level
   except Exception as e:
-    print(e)
     return None
 
 def update_car(id: int, request: CarBase, db: Session):
@@ -50,9 +48,8 @@ def update_car(id: int, request: CarBase, db: Session):
     db.commit()
     return car
   except Exception as e:
-    traceback.print_exception(e)
-    return {'result': False} 
+    return None
 
 def delete_user(id: int, db: Session):
   # TODO
-  return False
+  return None
