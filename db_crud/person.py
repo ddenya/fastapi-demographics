@@ -41,6 +41,7 @@ def update_person(id: int, request: PersonBase, db: Session):
     person.email = request.email
     person.nation = request.nation
     person.add_houses_by_ids(request.houses_ids, session = db)
+    person.add_cars_by_ids(request.cars_ids, session = db)
     db.commit()
     return person
   except Exception as e:
