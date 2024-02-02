@@ -30,7 +30,6 @@ class Person(BaseModel):
   class Config():
     orm_mode=True
 
-
 # Data we receive from user
 class UserBase(BaseModel):
   username: str
@@ -39,6 +38,7 @@ class UserBase(BaseModel):
 
 # Data we display to user
 class UserDisplay(BaseModel):
+  id: str
   username: str
   email: str
   class Config():
@@ -52,7 +52,6 @@ class PersonBase(BaseModel):
   nation: str
   houses_ids: List[int]
   cars_ids: List[int]
-
 
 class PersonDisplay(BaseModel):
   id: int
@@ -89,7 +88,6 @@ class HouseDisplay(BaseModel):
   owners : List[Person] = []
   class Config():
     orm_mode=True
-
 
 #Cars
 class CarBase(BaseModel):
