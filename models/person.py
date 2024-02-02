@@ -22,9 +22,9 @@ class DbPerson(Base):
   def add_houses_by_ids(self, houses_ids: list[int], session: Session):
     # Avoiding cirtular import
     from models.house import DbHouse
-    self.houses.extend(session.query(DbHouse).filter(DbHouse.id.in_(houses_ids)).all())
+    self.houses = (session.query(DbHouse).filter(DbHouse.id.in_(houses_ids)).all())
 
   def add_cars_by_ids(self, cars_ids: list[int], session: Session):
     # Avoiding cirtular import
     from models.car import DbCar
-    self.cars.extend(session.query(DbCar).filter(DbCar.id.in_(cars_ids)).all())
+    self.cars = (session.query(DbCar).filter(DbCar.id.in_(cars_ids)).all())

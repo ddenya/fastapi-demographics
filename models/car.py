@@ -23,4 +23,4 @@ class DbCar(Base):
   def add_owners_by_ids(self, owner_ids: list[int], session: Session):
       # Avoiding cirtular import
       from models.person import DbPerson
-      self.owners.extend(session.query(DbPerson).filter(DbPerson.id.in_(owner_ids)).all())
+      self.owners = (session.query(DbPerson).filter(DbPerson.id.in_(owner_ids)).all())
