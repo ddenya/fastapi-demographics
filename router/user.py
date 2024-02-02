@@ -12,17 +12,17 @@ router = APIRouter(
 )
 
 # Create
-@router.post('/', response_model=UserDisplay)
+@router.post('/', response_model=UserDisplay, status_code=201)
 def create_user(request: UserBase, db: Session=Depends(get_db)):
   return db_user.create_user(request, db)
 
 # Read all users
-@router.get('/',response_model=List[UserDisplay])
+@router.get('/',response_model=List[UserDisplay], status_code=200)
 def get_all_users(db: Session=Depends(get_db)):
   return db_user.get_all_users(db)
 
 # Read one user 
-@router.get('/{id}', response_model=UserDisplay)
+@router.get('/{id}', response_model=UserDisplay, status_code=200)
 def get_user(id: int, db: Session=Depends(get_db)):
   ret = db_user.get_user(id,db)
   if ret is None:
@@ -33,7 +33,7 @@ def get_user(id: int, db: Session=Depends(get_db)):
   return ret
 
 # Update
-@router.post('/{id}', response_model=UserDisplay)
+@router.post('/{id}', response_model=UserDisplay, status_code=200)
 def update_user(id: int, request: UserBase, db: Session=Depends(get_db)):
   ret = db_user.update_user(id, request, db)
   if ret is None:
@@ -44,7 +44,7 @@ def update_user(id: int, request: UserBase, db: Session=Depends(get_db)):
   return ret
 
 # Delete
-@router.delete('/{id}')
+@router.delete('/{id}', status_code=204)
 def delete_user(id: int, db:Session=Depends(get_db)):
   ret =  db_user.delete_user(id,db)
   if ret is None:

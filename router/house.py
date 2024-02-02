@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 #Create house
-@router.post('/', response_model=HouseDisplay)
+@router.post('/', response_model=HouseDisplay, status_code=201)
 def create_house(request: HouseBase, db: Session= Depends(get_db)):
     return db_house.create_house(request, db)
 

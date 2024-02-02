@@ -13,12 +13,12 @@ router = APIRouter(
 )
 
 #Create
-@router.post('/', response_model=PersonDisplay)
+@router.post('/', response_model=PersonDisplay, status_code=201)
 def create_person(request: PersonBase, db: Session= Depends(get_db)):
     return db_person.create_person(request, db)
 
 # Get 
-@router.get('/{id}', response_model=PersonDisplay)
+@router.get('/{id}', response_model=PersonDisplay, status_code=200)
 def get_person(id: int, db: Session = Depends(get_db)):
     ret = db_person.get_person(id, db)
     if ret is None:
@@ -29,12 +29,12 @@ def get_person(id: int, db: Session = Depends(get_db)):
     return ret
 
 # Get all
-@router.get('/', response_model=List[PersonDisplay])
+@router.get('/', response_model=List[PersonDisplay], status_code=200)
 def get_all_people(db: Session = Depends(get_db)):
     return db_person.get_all_people(db)
 
 # Update
-@router.post('/{id}', response_model=PersonDisplay)
+@router.post('/{id}', response_model=PersonDisplay, status_code=201)
 def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
     ret = db_person.update_person(id, request, db)
     if ret is None:

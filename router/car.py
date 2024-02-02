@@ -11,13 +11,13 @@ router = APIRouter(
     tags=['car']
 )
 
-#Create house
-@router.post('/', response_model=CarDisplay)
+#Create car
+@router.post('/', response_model=CarDisplay, status_code=201)
 def create_car(request: CarBase, db: Session= Depends(get_db)):
     return db_car.create_car(request, db)
 
-#get specific house
-@router.get('/{id}', response_model=CarDisplay) # get this part in comment line
+# Get specific car
+@router.get('/{id}', response_model=CarDisplay, status_code=200) # get this part in comment line
 def get_car(id: int, db: Session = Depends(get_db)):
     ret = db_car.get_car(id, db)
     if ret is None:
@@ -25,15 +25,14 @@ def get_car(id: int, db: Session = Depends(get_db)):
         status_code=404,
         content={"message": f'Car with id {id} not found'},
     )
-    return ret
 
-#get all houses
-@router.get('/', response_model=List[CarDisplay])
+# Get all cars
+@router.get('/', response_model=List[CarDisplay], status_code=200)
 def get_all_cars(db: Session=Depends(get_db)):
     return db_car.get_all_cars(db)
 
-#update house
-@router.post('/{id}', response_model=CarDisplay)
+# Update cars
+@router.post('/{id}', response_model=CarDisplay, status_code=200)
 def update_car(id: int, request: CarBase, db: Session = Depends(get_db)):
     ret =  db_car.update_car(id, request, db)
     if ret is None:
