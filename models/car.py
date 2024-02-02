@@ -24,3 +24,9 @@ class DbCar(Base):
       # Avoiding cirtular import
       from models.person import DbPerson
       self.owners = (session.query(DbPerson).filter(DbPerson.id.in_(owner_ids)).all())
+  
+  # Not used but I will leave it here for now.
+  def dict(self):
+     fields_dict = {key: value for key, value in self.__dict__.items() if not key.startswith('_')}
+     fields_dict['owners'] = [owner.dict() for owner in self.owners] if self.owners else []
+     return fields_dict
