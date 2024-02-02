@@ -46,5 +46,10 @@ def update_person(id: int, request: PersonBase, db: Session):
     return None
 
 def delete_person(id: int, db: Session):
-  # TODO
-  return None
+  try:
+    person = get_person(id, db)
+    db.delete(person)
+    db.commit()
+    return True
+  except Exception as e:
+    return None 

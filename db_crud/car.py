@@ -50,6 +50,11 @@ def update_car(id: int, request: CarBase, db: Session):
   except Exception as e:
     return None
 
-def delete_user(id: int, db: Session):
-  # TODO
-  return None
+def delete_car(id: int, db: Session):
+  try:
+    car = get_car(id, db)
+    db.delete(car)
+    db.commit()
+    return True
+  except Exception as e:
+    return None

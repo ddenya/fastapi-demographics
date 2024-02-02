@@ -51,6 +51,11 @@ def update_house(id: int, request: HouseBase, db: Session):
   except Exception as e:
     return None 
 
-def delete_user(id: int, db: Session):
-  # TODO
-  return None
+def delete_house(id: int, db: Session):
+  try:
+    house = get_house(id, db)
+    db.delete(house)
+    db.commit()
+    return True
+  except Exception as e:
+    return None 
