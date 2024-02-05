@@ -33,16 +33,22 @@ def update_person(id: int, request: PersonBase, db: Session):
     person = get_person(id, db)
     if person is None:
       return None
-    person.name = request.name
-    person.age = request.age
-    person.gender = request.gender
-    person.email = request.email
-    person.nation = request.nation
-    person.add_houses_by_ids(request.houses_ids, session = db)
-    person.add_cars_by_ids(request.cars_ids, session = db)
+    model_dump = request.dict(exclude_unset=True)
+    # Update only the provided fields in the reques
+    for field, value in model_dump.items():
+      setattr(person, field, value)
+      # Check if houses_ids are present in the request before calling the method
+    if "houses_ids" in model_dump:
+      person.add_houses_by_ids(request.houses_ids, session=db)
+        # Check if cars_ids are present in the request before calling the method
+    if "cars_ids" in model_dump:
+      person.add_cars_by_ids(request.cars_ids, session=db)
+    
+    setattr(person, "id", id)
     db.commit()
     return person
   except Exception as e:
+    print("Exception: " + str(e))
     return None
 
 def delete_person(id: int, db: Session):

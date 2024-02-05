@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 # House inside of Person
@@ -45,13 +45,15 @@ class UserDisplay(BaseModel):
     orm_mode=True
 
 class PersonBase(BaseModel):
-  name: str
-  age: str
-  gender: str
-  email: str
-  nation: str
-  houses_ids: List[int]
-  cars_ids: List[int]
+  name: Optional[str] = None
+  age: Optional[str] = None
+  gender: Optional[str] = None
+  email: Optional[str] = None
+  nation: Optional[str] = None
+  houses_ids: Optional[List[int]] = None
+  cars_ids: Optional[List[int]] = None
+  class Config:
+    use_enum_values = True
 
 class PersonDisplay(BaseModel):
   id: int

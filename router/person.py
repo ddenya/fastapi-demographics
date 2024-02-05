@@ -33,8 +33,8 @@ def get_person(id: int, db: Session = Depends(get_db)):
 def get_all_people(db: Session = Depends(get_db)):
     return db_person.get_all_people(db)
 
-# Update
-@router.post('/{id}', response_model=PersonDisplay, status_code=201)
+# Patch : 200 code https://www.rfc-editor.org/rfc/rfc5789.txt (2.1)
+@router.patch('/{id}', response_model=PersonDisplay, status_code=200)
 def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
     ret = db_person.update_person(id, request, db)
     if ret is None:
