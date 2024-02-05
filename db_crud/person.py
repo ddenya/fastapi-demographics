@@ -37,10 +37,10 @@ def update_person(id: int, request: PersonBase, db: Session):
     # Update only the provided fields in the reques
     for field, value in model_dump.items():
       setattr(person, field, value)
-      # Check if houses_ids are present in the request before calling the method
+    # Check if houses_ids are present in the request before calling the method
     if "houses_ids" in model_dump:
       person.add_houses_by_ids(request.houses_ids, session=db)
-        # Check if cars_ids are present in the request before calling the method
+    # Check if cars_ids are present in the request before calling the method
     if "cars_ids" in model_dump:
       person.add_cars_by_ids(request.cars_ids, session=db)
     
