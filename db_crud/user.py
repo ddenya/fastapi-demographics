@@ -2,12 +2,15 @@ from sqlalchemy.orm.session import Session
 from models.user import DbUser
 from models.schemas import UserBase
 from db.hash import Hash
+from fastapi import HTTPException, status
+
 
 def create_user(request: UserBase, db: Session):
   new_user = DbUser(
     username = request.username,
     email = request.email,
-    password = Hash.bcrypt(request.password)
+    password = Hash.bcrypt(request.password),
+    user_type = request.user_type
   )
 
   db.add(new_user)
@@ -27,6 +30,14 @@ def get_user(id: int, db: Session):
   except Exception as e:
     return None
 
+#Ask Denys if getting user by username is logical?
+def get_user_by_username(db: Session, username: str):
+  user = db.query(DbUser).filter(DbUser.username == username).first()
+  if not user:
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+      detail=f'User with username {username} not found')
+  return user
+
 
 def update_user(id: int, request: UserBase, db: Session):
   try:
@@ -34,6 +45,7 @@ def update_user(id: int, request: UserBase, db: Session):
     user.username = request.username
     user.email = request.email
     user.password = Hash.bcrypt(request.password)
+    user.user_type = request.user_type
     db.commit()
     return user
   except Exception as e:
