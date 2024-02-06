@@ -32,7 +32,6 @@ class Person(BaseModel):
 
 # Data we receive from user
 class UserBase(BaseModel):
-  id: str
   username: str
   email: str
   password: str
