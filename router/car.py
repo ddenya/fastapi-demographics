@@ -33,7 +33,7 @@ def get_all_cars(db: Session=Depends(get_db)):
     return db_car.get_all_cars(db)
 
 # Update cars
-@router.post('/{id}', response_model=CarDisplay, status_code=200, dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.patch('/{id}', response_model=CarDisplay, status_code=200, dependencies=[Depends(check_user_types(['admin', 'general']))])
 def update_car(id: int, request: CarBase, db: Session = Depends(get_db)):
     ret =  db_car.update_car(id, request, db)
     if ret is None:
