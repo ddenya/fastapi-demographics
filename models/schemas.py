@@ -1,6 +1,8 @@
 from typing import List, Optional
 from pydantic import BaseModel
 
+# Inside classes
+# ------------------------------------------------------------------
 # House inside of Person
 class House(BaseModel):
   city: str
@@ -30,19 +32,12 @@ class Person(BaseModel):
   class Config():
     orm_mode=True
 
-# Data we receive from user
+# Base classes - Data we receive from user
+# ------------------------------------------------------------------
 class UserBase(BaseModel):
   username: str
   email: str
   password: str
-
-# Data we display to user
-class UserDisplay(BaseModel):
-  id: int
-  username: str
-  email: str
-  class Config():
-    orm_mode=True
 
 class PersonBase(BaseModel):
   name: Optional[str] = None
@@ -54,6 +49,34 @@ class PersonBase(BaseModel):
   cars_ids: Optional[List[int]] = None
   class Config:
     use_enum_values = True
+
+class HouseBase(BaseModel):
+  city: str
+  street: str
+  number: str
+  unit: str
+  zipcode: int
+  acquisition_date: int
+  year_built : int
+  # When creating a house, tying to a List[person.id]
+  owner_ids : List[int]
+
+class CarBase(BaseModel):
+  brand: Optional[str] = None
+  model: Optional[str] = None
+  type: Optional[str] = None
+  color: Optional[str] = None
+  year: Optional[str] = None
+  owner_ids : Optional[List[int]] = None
+
+# Display classes - Data we display to user
+# ------------------------------------------------------------------
+class UserDisplay(BaseModel):
+  id: int
+  username: str
+  email: str
+  class Config():
+    orm_mode=True
 
 class PersonDisplay(BaseModel):
   id: int
@@ -67,17 +90,6 @@ class PersonDisplay(BaseModel):
   class Config():
     orm_mode=True
 
-class HouseBase(BaseModel):
-  city: str
-  street: str
-  number: str
-  unit: str
-  zipcode: int
-  acquisition_date: int
-  year_built : int
-  # When creating a house, tying to a List[person.id]
-  owner_ids : List[int]
-
 class HouseDisplay(BaseModel):
   id: int
   city: str
@@ -90,16 +102,6 @@ class HouseDisplay(BaseModel):
   owners : List[Person] = []
   class Config():
     orm_mode=True
-
-#Cars
-class CarBase(BaseModel):
-  brand: Optional[str] = None
-  model: Optional[str] = None
-  type: Optional[str] = None
-  color: Optional[str] = None
-  year: Optional[str] = None
-  # When creating a house, tying to a List[person.id]
-  owner_ids : Optional[List[int]] = None
 
 class CarDisplay(BaseModel):
   id: int
