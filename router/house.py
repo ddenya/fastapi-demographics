@@ -33,7 +33,7 @@ def get_all_houses(db: Session=Depends(get_db)):
     return db_house.get_all_houses(db)
 
 #update house
-@router.post('/{id}', response_model=HouseDisplay)
+@router.patch('/{id}', response_model=HouseDisplay)
 def update_house(id: int, request: HouseBase, db: Session = Depends(get_db)):
     ret =  db_house.update_house(id, request, db)
     if ret is None:

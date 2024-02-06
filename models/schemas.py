@@ -51,15 +51,15 @@ class PersonBase(BaseModel):
     use_enum_values = True
 
 class HouseBase(BaseModel):
-  city: str
-  street: str
-  number: str
-  unit: str
-  zipcode: int
-  acquisition_date: int
-  year_built : int
+  city: Optional[str] = None
+  street: Optional[str] = None
+  number: Optional[str] = None
+  unit: Optional[str] = None
+  zipcode: Optional[int] = None
+  acquisition_date: Optional[int] = None
+  year_built : Optional[int] = None
   # When creating a house, tying to a List[person.id]
-  owner_ids : List[int]
+  owner_ids : Optional[List[int]] = None
 
 class CarBase(BaseModel):
   brand: Optional[str] = None
