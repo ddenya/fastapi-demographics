@@ -32,13 +32,14 @@ class Person(BaseModel):
 
 # Data we receive from user
 class UserBase(BaseModel):
+  id: str
   username: str
   email: str
   password: str
 
 # Data we display to user
 class UserDisplay(BaseModel):
-  id: str
+  id: int
   username: str
   email: str
   class Config():
