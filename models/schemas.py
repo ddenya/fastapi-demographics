@@ -93,13 +93,13 @@ class HouseDisplay(BaseModel):
 
 #Cars
 class CarBase(BaseModel):
-  brand: str
-  model: str
-  type: str
-  color: str
-  year: str
+  brand: Optional[str] = None
+  model: Optional[str] = None
+  type: Optional[str] = None
+  color: Optional[str] = None
+  year: Optional[str] = None
   # When creating a house, tying to a List[person.id]
-  owner_ids : List[int]
+  owner_ids : Optional[List[int]] = None
 
 class CarDisplay(BaseModel):
   id: int

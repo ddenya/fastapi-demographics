@@ -34,20 +34,22 @@ def get_car(id: int, db: Session):
 
 def update_car(id: int, request: CarBase, db: Session):
   try:
-    # TODO: conversion to str if we pass int? "424242"?
     car = get_car(id, db)
     if car is None:
       return None
-    car.brand = request.brand
-    car.model = request.model
-    car.type = request.type
-    car.year = request.year
-
-    car.add_owners_by_ids(request.owner_ids, session = db)
-
+    model_dump = request.dict(exclude_unset=True)
+    # Update only the provided fields in the reques
+    for field, value in model_dump.items():
+      setattr(car, field, value)
+    # Check if owner_ids are present in the request before calling the method
+    if "owner_ids" in model_dump:
+      car.add_owners_by_ids(request.owner_ids, session=db)
+    
+    setattr(car, "id", id)
     db.commit()
     return car
   except Exception as e:
+    print("Exception: " + str(e))
     return None
 
 def delete_car(id: int, db: Session):
