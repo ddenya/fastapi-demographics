@@ -31,13 +31,19 @@ def get_user(id: int, db: Session):
 def update_user(id: int, request: UserBase, db: Session):
   try:
     user = get_user(id, db)
-    user.username = request.username
-    user.email = request.email
-    user.password = Hash.bcrypt(request.password)
+    if user is None:
+      return None
+    model_dump = request.dict(exclude_unset=True)
+    # Update only the provided fields in the reques
+    for field, value in model_dump.items():
+      setattr(user, field, value)
+    
+    setattr(user, "id", id)
     db.commit()
     return user
   except Exception as e:
-    return None 
+    print("Exception: " + str(e))
+    return None
 
 def delete_user(id: int, db: Session):
   try:

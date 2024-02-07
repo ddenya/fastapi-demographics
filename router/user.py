@@ -33,7 +33,7 @@ def get_user(id: int, db: Session=Depends(get_db)):
   return ret
 
 # Update
-@router.post('/{id}', response_model=UserDisplay, status_code=200)
+@router.patch('/{id}', response_model=UserDisplay, status_code=200)
 def update_user(id: int, request: UserBase, db: Session=Depends(get_db)):
   ret = db_user.update_user(id, request, db)
   if ret is None:
