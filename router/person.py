@@ -52,4 +52,13 @@ def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
         content={"message": f'Person with id {id} not found'},
     )
     return ret
-# Delete user
+# Delete person
+@router.delete('/{id}', status_code=204)
+def delete_person(id: int, db:Session=Depends(get_db)):
+  ret =  db_person.delete_car(id,db)
+  if ret is None:
+    return JSONResponse(
+      status_code=404,
+      content={"message": f'Person with {id} not found'},
+  )
+  return ret

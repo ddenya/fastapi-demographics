@@ -45,3 +45,12 @@ def update_house(id: int, request: HouseBase, db: Session = Depends(get_db)):
     return ret
 
 # Delete house
+@router.delete('/{id}', status_code=204)
+def delete_house(id: int, db:Session=Depends(get_db)):
+  ret =  db_house.delete_house(id,db)
+  if ret is None:
+    return JSONResponse(
+      status_code=404,
+      content={"message": f'House with {id} not found'},
+  )
+  return ret
