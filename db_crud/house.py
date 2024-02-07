@@ -39,12 +39,13 @@ def update_house(id: int, request: HouseBase, db: Session):
     house = get_house(id, db)
     if house is None:
       return None
-    house.city = request.city
-    house.street = request.street
-    house.number = request.number
-    house.unit = request.unit
-
-    house.add_owners_by_ids(request.owner_ids, session = db)
+    model_dump = request.dict(exclude_unset=True)
+    # Update only the provided fields in the reques
+    for field, value in model_dump.items():
+      setattr(house, field, value)
+    # Check if owner_ids are present in the request before calling the method
+    if "owner_ids" in model_dump:
+      house.add_owners_by_ids(request.owner_ids, session=db)
 
     db.commit()
     return house

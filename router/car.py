@@ -43,4 +43,13 @@ def update_car(id: int, request: CarBase, db: Session = Depends(get_db)):
     )
     return ret
 
-# Delete car
+# Delete car - cascades?
+@router.delete('/{id}', status_code=204)
+def delete_user(id: int, db:Session=Depends(get_db)):
+  ret =  db_car.delete_car(id,db)
+  if ret is None:
+    return JSONResponse(
+      status_code=404,
+      content={"message": f'Car with {id} not found'},
+  )
+  return ret

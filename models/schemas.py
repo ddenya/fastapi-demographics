@@ -1,6 +1,8 @@
 from typing import List, Optional
 from pydantic import BaseModel
 
+# Inside classes
+# ------------------------------------------------------------------
 # House inside of Person
 class House(BaseModel):
   city: str
@@ -30,7 +32,8 @@ class Person(BaseModel):
   class Config():
     orm_mode=True
 
-# Data we receive from user
+# Base classes - Data we receive from user
+# ------------------------------------------------------------------
 class UserBase(BaseModel):
   username: str
   email: str
@@ -57,6 +60,34 @@ class PersonBase(BaseModel):
   class Config:
     use_enum_values = True
 
+class HouseBase(BaseModel):
+  city: Optional[str] = None
+  street: Optional[str] = None
+  number: Optional[str] = None
+  unit: Optional[str] = None
+  zipcode: Optional[int] = None
+  acquisition_date: Optional[int] = None
+  year_built : Optional[int] = None
+  # When creating a house, tying to a List[person.id]
+  owner_ids : Optional[List[int]] = None
+
+class CarBase(BaseModel):
+  brand: Optional[str] = None
+  model: Optional[str] = None
+  type: Optional[str] = None
+  color: Optional[str] = None
+  year: Optional[str] = None
+  owner_ids : Optional[List[int]] = None
+
+# Display classes - Data we display to user
+# ------------------------------------------------------------------
+class UserDisplay(BaseModel):
+  id: int
+  username: str
+  email: str
+  class Config():
+    orm_mode=True
+
 class PersonDisplay(BaseModel):
   id: int
   name: str
@@ -68,17 +99,6 @@ class PersonDisplay(BaseModel):
   cars : List[Car] = []
   class Config():
     orm_mode=True
-
-class HouseBase(BaseModel):
-  city: str
-  street: str
-  number: str
-  unit: str
-  zipcode: int
-  acquisition_date: int
-  year_built : int
-  # When creating a house, tying to a List[person.id]
-  owner_ids : List[int]
 
 class HouseDisplay(BaseModel):
   id: int
@@ -92,16 +112,6 @@ class HouseDisplay(BaseModel):
   owners : List[Person] = []
   class Config():
     orm_mode=True
-
-#Cars
-class CarBase(BaseModel):
-  brand: str
-  model: str
-  type: str
-  color: str
-  year: str
-  # When creating a house, tying to a List[person.id]
-  owner_ids : List[int]
 
 class CarDisplay(BaseModel):
   id: int
