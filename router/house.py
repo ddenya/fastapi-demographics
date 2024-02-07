@@ -13,12 +13,12 @@ router = APIRouter(
 )
 
 #Create house
-@router.post('/', response_model=HouseDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.post('/', response_model=HouseDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'member']))])
 def create_house(request: HouseBase, db: Session= Depends(get_db)):
     return db_house.create_house(request, db)
 
 #get specific house
-@router.get('/{id}', response_model=HouseDisplay, dependencies=[Depends(check_user_types(['admin', 'general']))]) # get this part in comment line
+@router.get('/{id}', response_model=HouseDisplay, dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))]) # get this part in comment line
 def get_house(id: int, db: Session = Depends(get_db)):
     ret = db_house.get_house(id, db)
     if ret is None:
@@ -29,12 +29,12 @@ def get_house(id: int, db: Session = Depends(get_db)):
     return ret
 
 #get all houses
-@router.get('/', response_model=List[HouseDisplay], dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.get('/', response_model=List[HouseDisplay], dependencies=[Depends(check_user_types(['admin', 'auditor']))])
 def get_all_houses(db: Session=Depends(get_db)):
     return db_house.get_all_houses(db)
 
 #update house
-@router.patch('/{id}', response_model=HouseDisplay, dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.patch('/{id}', response_model=HouseDisplay, dependencies=[Depends(check_user_types(['admin', 'member']))])
 def update_house(id: int, request: HouseBase, db: Session = Depends(get_db)):
     ret =  db_house.update_house(id, request, db)
     if ret is None:
@@ -45,7 +45,7 @@ def update_house(id: int, request: HouseBase, db: Session = Depends(get_db)):
     return ret
 
 # Delete house
-@router.delete('/{id}', status_code=204)
+@router.delete('/{id}', status_code=204, dependencies=[Depends(check_user_types('admin'))])
 def delete_house(id: int, db:Session=Depends(get_db)):
   ret =  db_house.delete_house(id,db)
   if ret is None:

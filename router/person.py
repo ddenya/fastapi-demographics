@@ -15,12 +15,12 @@ router = APIRouter(
 
 #Create
 
-@router.post('/', response_model=PersonDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.post('/', response_model=PersonDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'member']))])
 def create_person(request: PersonBase, db: Session= Depends(get_db), current_user: UserBase = Depends(get_current_user)):
     return db_person.create_person(request, db)
 
 # Get 
-@router.get('/{id}', status_code=200, dependencies=[Depends(check_user_types(['admin', 'general']))]) #response_model=PersonDisplay,
+@router.get('/{id}', status_code=200, dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))]) #response_model=PersonDisplay,
 def get_person(id: int, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
     ret = db_person.get_person(id, db)
     if ret is None:
@@ -38,12 +38,12 @@ def get_person(id: int, db: Session = Depends(get_db), current_user: UserBase = 
     }
 
 # Get all
-@router.get('/', response_model=List[PersonDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.get('/', response_model=List[PersonDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))])
 def get_all_people(db: Session = Depends(get_db)):
     return db_person.get_all_people(db)
 
 # Patch : 200 code https://www.rfc-editor.org/rfc/rfc5789.txt (2.1)
-@router.patch('/{id}', response_model=PersonDisplay, status_code=200, dependencies=[Depends(check_user_types(['admin', 'general']))])
+@router.patch('/{id}', response_model=PersonDisplay, status_code=200, dependencies=[Depends(check_user_types(['admin', 'member']))])
 def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
     ret = db_person.update_person(id, request, db)
     if ret is None:
@@ -53,7 +53,7 @@ def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
     )
     return ret
 # Delete person
-@router.delete('/{id}', status_code=204)
+@router.delete('/{id}', status_code=204, dependencies=[Depends(check_user_types('admin'))])
 def delete_person(id: int, db:Session=Depends(get_db)):
   ret =  db_person.delete_car(id,db)
   if ret is None:
