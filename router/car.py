@@ -1,5 +1,6 @@
 from typing import List
 from fastapi.responses import JSONResponse
+from auth.oauth2 import check_user_types
 from models.schemas import CarDisplay, CarBase
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -12,12 +13,12 @@ router = APIRouter(
 )
 
 #Create car
-@router.post('/', response_model=CarDisplay, status_code=201)
+@router.post('/', response_model=CarDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'member']))])
 def create_car(request: CarBase, db: Session= Depends(get_db)):
     return db_car.create_car(request, db)
 
 # Get specific car
-@router.get('/{id}', response_model=CarDisplay, status_code=200) # get this part in comment line
+@router.get('/{id}', response_model=CarDisplay, status_code=200, dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))]) # get this part in comment line
 def get_car(id: int, db: Session = Depends(get_db)):
     ret = db_car.get_car(id, db)
     if ret is None:
@@ -28,12 +29,12 @@ def get_car(id: int, db: Session = Depends(get_db)):
     return ret
 
 # Get all cars
-@router.get('/', response_model=List[CarDisplay], status_code=200)
+@router.get('/', response_model=List[CarDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'auditor']))])
 def get_all_cars(db: Session=Depends(get_db)):
     return db_car.get_all_cars(db)
 
 # Update cars
-@router.patch('/{id}', response_model=CarDisplay, status_code=200)
+@router.patch('/{id}', response_model=CarDisplay, status_code=200, dependencies=[Depends(check_user_types(['admin', 'member']))])
 def update_car(id: int, request: CarBase, db: Session = Depends(get_db)):
     ret =  db_car.update_car(id, request, db)
     if ret is None:
@@ -44,7 +45,7 @@ def update_car(id: int, request: CarBase, db: Session = Depends(get_db)):
     return ret
 
 # Delete car
-@router.delete('/{id}', status_code=204)
+@router.delete('/{id}', status_code=204, dependencies=[Depends(check_user_types('admin'))])
 def delete_car(id: int, db:Session=Depends(get_db)):
   ret =  db_car.delete_car(id,db)
   if ret is None:
