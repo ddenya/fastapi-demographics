@@ -25,6 +25,7 @@ def get_car(id: int, db: Session = Depends(get_db)):
         status_code=404,
         content={"message": f'Car with id {id} not found'},
     )
+    return ret
 
 # Get all cars
 @router.get('/', response_model=List[CarDisplay], status_code=200)

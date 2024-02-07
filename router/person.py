@@ -47,7 +47,7 @@ def update_person(id: int, request: PersonBase, db: Session = Depends(get_db)):
 # Delete person
 @router.delete('/{id}', status_code=204)
 def delete_person(id: int, db:Session=Depends(get_db)):
-  ret =  db_person.delete_car(id,db)
+  ret =  db_person.delete_person(id,db)
   if ret is None:
     return JSONResponse(
       status_code=404,
