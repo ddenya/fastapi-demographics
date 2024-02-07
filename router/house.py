@@ -1,5 +1,6 @@
 from typing import List
 from fastapi.responses import JSONResponse
+from auth.oauth2 import check_user_types
 from models.schemas import HouseDisplay, HouseBase
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -12,12 +13,12 @@ router = APIRouter(
 )
 
 #Create house
-@router.post('/', response_model=HouseDisplay, status_code=201)
+@router.post('/', response_model=HouseDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'general']))])
 def create_house(request: HouseBase, db: Session= Depends(get_db)):
     return db_house.create_house(request, db)
 
 #get specific house
-@router.get('/{id}', response_model=HouseDisplay) # get this part in comment line
+@router.get('/{id}', response_model=HouseDisplay, dependencies=[Depends(check_user_types(['admin', 'general']))]) # get this part in comment line
 def get_house(id: int, db: Session = Depends(get_db)):
     ret = db_house.get_house(id, db)
     if ret is None:
@@ -28,12 +29,12 @@ def get_house(id: int, db: Session = Depends(get_db)):
     return ret
 
 #get all houses
-@router.get('/', response_model=List[HouseDisplay])
+@router.get('/', response_model=List[HouseDisplay], dependencies=[Depends(check_user_types(['admin', 'general']))])
 def get_all_houses(db: Session=Depends(get_db)):
     return db_house.get_all_houses(db)
 
 #update house
-@router.patch('/{id}', response_model=HouseDisplay)
+@router.patch('/{id}', response_model=HouseDisplay, dependencies=[Depends(check_user_types(['admin', 'general']))])
 def update_house(id: int, request: HouseBase, db: Session = Depends(get_db)):
     ret =  db_house.update_house(id, request, db)
     if ret is None:

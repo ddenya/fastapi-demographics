@@ -38,6 +38,16 @@ class UserBase(BaseModel):
   username: str
   email: str
   password: str
+  user_type: str
+  
+# Data we display to user
+class UserDisplay(BaseModel):
+  id: int
+  username: str
+  email: str
+  user_type: str
+  class Config():
+    orm_mode=True
 
 class PersonBase(BaseModel):
   name: Optional[str] = None

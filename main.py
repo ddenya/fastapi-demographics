@@ -3,8 +3,10 @@ from router import user, house, person, car
 from models import Base
 from db.db_connector import engine
 from fastapi.middleware.cors import CORSMiddleware
+from auth import authentication
 
 app = FastAPI()
+app.include_router(authentication.router)
 app.include_router(user.router)
 app.include_router(house.router)
 app.include_router(car.router)
