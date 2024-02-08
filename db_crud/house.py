@@ -3,21 +3,29 @@ from sqlalchemy.orm.session import Session
 from models.house import DbHouse
 from models.schemas import HouseBase
 
+'''
+This function creates object even if only part of fields is provided
+It will break if fields of model are not strings!
+'''
 def create_house(request: HouseBase, db: Session):
-  new_house = DbHouse(
-    city = request.city,
-    street = request.street,
-    number = request.number,
-    unit = request.unit,
-    zipcode = request.zipcode,
-    acquisition_date = request.acquisition_date,
-    year_built = request.year_built  
-    )
-  new_house.add_owners_by_ids(request.owner_ids, session = db)
 
+  new_house = DbHouse()
+
+  # filling values of fields with field names in case value of field is not provided
+  request_dict = request.dict()
+  for field, value in request_dict.items():
+    if value is not None:
+      setattr(new_house, field, value)
+    else:
+      setattr(new_house, field, field)
+
+  if request.owner_ids:
+    new_house.add_owners_by_ids(request.owner_ids, session = db)
+  
   db.add(new_house)
   db.commit()
   db.refresh(new_house)
+
   return new_house
 
 def get_all_houses(db: Session):

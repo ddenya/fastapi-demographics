@@ -2,18 +2,33 @@ from sqlalchemy.orm.session import Session
 from models.person import DbPerson
 from models.schemas import PersonBase
 
+'''
+This function creates object even if only part of fields is provided
+It will break if fields of model are not strings!
+'''
 def create_person(request: PersonBase, db: Session):
-  new_person = DbPerson(
-    name = request.name,
-    age = request.age,
-    gender = request.gender,
-    email = request.email,
-    nation = request.nation,
-  )
-  new_person.add_houses_by_ids(request.houses_ids, session = db)
+
+  new_person = DbPerson()
+
+  # filling values of fields with field names in case value of field is not provided
+  request_dict = request.dict()
+  print(request_dict)
+  for field, value in request_dict.items():
+    if value is not None:
+      setattr(new_person, field, value)
+    else:
+      setattr(new_person, field, field)
+
+  if request.houses_ids:
+    new_person.add_houses_by_ids(request.houses_ids, session = db)
+
+  if request.cars_ids:
+    new_person.add_cars_by_ids(request.cars_ids, session = db)
+  
   db.add(new_person)
   db.commit()
   db.refresh(new_person)
+
   return new_person
 
 def get_all_people(db: Session):

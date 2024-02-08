@@ -3,20 +3,29 @@ from sqlalchemy.orm.session import Session
 from models.car import DbCar
 from models.schemas import CarBase
 
+'''
+This function creates object even if only part of fields is provided
+It will break if fields of model are not strings!
+'''
 def create_car(request: CarBase, db: Session):
-  # print(request)
-  new_car = DbCar(
-    brand = request.brand,
-    model = request.model,
-    type = request.type,
-    color = request.color,
-    year = request.year
-    )
-  new_car.add_owners_by_ids(request.owner_ids, session = db)
 
+  new_car = DbCar()
+
+  # filling values of fields with field names in case value of field is not provided
+  request_dict = request.dict()
+  for field, value in request_dict.items():
+    if value is not None:
+      setattr(new_car, field, value)
+    else:
+      setattr(new_car, field, field)
+
+  if request.owner_ids:
+    new_car.add_owners_by_ids(request.owner_ids, session = db)
+  
   db.add(new_car)
   db.commit()
   db.refresh(new_car)
+
   return new_car
 
 def get_all_cars(db: Session):

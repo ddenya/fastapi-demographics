@@ -56,9 +56,9 @@ class HouseBase(BaseModel):
   street: Optional[str] = None
   number: Optional[str] = None
   unit: Optional[str] = None
-  zipcode: Optional[int] = None
-  acquisition_date: Optional[int] = None
-  year_built : Optional[int] = None
+  zipcode: Optional[str] = None
+  acquisition_date: Optional[str] = None
+  year_built : Optional[str] = None
   # When creating a house, tying to a List[person.id]
   owner_ids : Optional[List[int]] = None
 
@@ -98,9 +98,9 @@ class HouseDisplay(BaseModel):
   street: str
   number: str
   unit: str
-  zipcode: int
-  acquisition_date: int
-  year_built : int
+  zipcode: str
+  acquisition_date: str
+  year_built : str
   owners : List[Person] = []
   class Config():
     orm_mode=True
