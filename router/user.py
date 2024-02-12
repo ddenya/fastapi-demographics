@@ -18,7 +18,7 @@ def create_user(request: UserBase, db: Session=Depends(get_db)):
   return db_user.create_user(request, db)
 
 # Read all users
-@router.get('/',response_model=List[UserDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'auditor']))])
+@router.get('/',response_model=List[UserDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'auditor', 'member']))])
 def get_all_users(db: Session=Depends(get_db)):
   return db_user.get_all_users(db)
 

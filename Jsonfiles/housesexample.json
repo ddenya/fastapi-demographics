@@ -1,0 +1,202 @@
+[
+  {
+    "city": "New York",
+    "street": "Broadway",
+    "number": "123",
+    "unit": "Apt 1",
+    "zipcode": 10001,
+    "acquisition_date": 2022,
+    "year_built": 2000,
+    "owner_ids": []
+  },
+  {
+    "city": "Los Angeles",
+    "street": "Sunset Blvd",
+    "number": "456",
+    "unit": "Unit B",
+    "zipcode": 90001,
+    "acquisition_date": 2015,
+    "year_built": 1985,
+    "owner_ids": []
+  },
+  {
+    "city": "Chicago",
+    "street": "Lake Shore Dr",
+    "number": "789",
+    "unit": "Suite 3",
+    "zipcode": 60601,
+    "acquisition_date": 2018,
+    "year_built": 1995,
+    "owner_ids": []
+  },
+  {
+    "city": "Houston",
+    "street": "Main St",
+    "number": "1010",
+    "unit": "Apt 10",
+    "zipcode": 77002,
+    "acquisition_date": 2020,
+    "year_built": 2008,
+    "owner_ids": []
+  },
+  {
+    "city": "Miami",
+    "street": "Ocean Drive",
+    "number": "1111",
+    "unit": "Unit 5",
+    "zipcode": 33139,
+    "acquisition_date": 2019,
+    "year_built": 2005,
+    "owner_ids": []
+  },
+  {
+    "city": "San Francisco",
+    "street": "Market St",
+    "number": "1414",
+    "unit": "Suite 14",
+    "zipcode": 94102,
+    "acquisition_date": 2017,
+    "year_built": 2001,
+    "owner_ids": []
+  },
+  {
+    "city": "Seattle",
+    "street": "Pike St",
+    "number": "1616",
+    "unit": "Apartment 16",
+    "zipcode": 98101,
+    "acquisition_date": 2016,
+    "year_built": 1999,
+    "owner_ids": []
+  },
+  {
+    "city": "Boston",
+    "street": "Beacon St",
+    "number": "1919",
+    "unit": "Unit 19",
+    "zipcode": 2108,
+    "acquisition_date": 2021,
+    "year_built": 2010,
+    "owner_ids": []
+  },
+  {
+    "city": "Denver",
+    "street": "Colfax Ave",
+    "number": "2020",
+    "unit": "Suite 20",
+    "zipcode": 80202,
+    "acquisition_date": 2014,
+    "year_built": 2002,
+    "owner_ids": []
+  },
+  {
+    "city": "Dallas",
+    "street": "Main St",
+    "number": "2323",
+    "unit": "Apartment 23",
+    "zipcode": 75201,
+    "acquisition_date": 2023,
+    "year_built": 2012,
+    "owner_ids": []
+  },
+  {
+    "city": "Atlanta",
+    "street": "Peachtree St",
+    "number": "2525",
+    "unit": "Unit 25",
+    "zipcode": 30303,
+    "acquisition_date": 2013,
+    "year_built": 2007,
+    "owner_ids": []
+  },
+  {
+    "city": "Phoenix",
+    "street": "Camelback Rd",
+    "number": "2828",
+    "unit": "Suite 28",
+    "zipcode": 85003,
+    "acquisition_date": 2012,
+    "year_built": 2006,
+    "owner_ids": []
+  },
+  {
+    "city": "Philadelphia",
+    "street": "Chestnut St",
+    "number": "3030",
+    "unit": "Apartment 30",
+    "zipcode": 19103,
+    "acquisition_date": 2011,
+    "year_built": 2004,
+    "owner_ids": []
+  },
+  {
+    "city": "Las Vegas",
+    "street": "Las Vegas Blvd",
+    "number": "3333",
+    "unit": "Unit 33",
+    "zipcode": 89109,
+    "acquisition_date": 2010,
+    "year_built": 2003,
+    "owner_ids": []
+  },
+  {
+    "city": "Orlando",
+    "street": "International Dr",
+    "number": "3535",
+    "unit": "Suite 35",
+    "zipcode": 32819,
+    "acquisition_date": 2009,
+    "year_built": 2000,
+    "owner_ids": []
+  },
+  {
+    "city": "Portland",
+    "street": "Main St",
+    "number": "3737",
+    "unit": "Unit 37",
+    "zipcode": 97201,
+    "acquisition_date": 2008,
+    "year_built": 1998,
+    "owner_ids": []
+  },
+  {
+    "city": "San Diego",
+    "street": "Pacific Beach Dr",
+    "number": "3939",
+    "unit": "Apartment 39",
+    "zipcode": 92109,
+    "acquisition_date": 2007,
+    "year_built": 1997,
+    "owner_ids": []
+  },
+  {
+    "city": "Austin",
+    "street": "Congress Ave",
+    "number": "4141",
+    "unit": "Suite 41",
+    "zipcode": 78701,
+    "acquisition_date": 2006,
+    "year_built": 1996,
+    "owner_ids": []
+  },
+  {
+    "city": "Nashville",
+    "street": "Broadway",
+    "number": "4343",
+    "unit": "Unit 43",
+    "zipcode": 37203,
+    "acquisition_date": 2005,
+    "year_built": 1995,
+    "owner_ids": []
+  },
+  {
+    "city": "New Orleans",
+    "street": "Bourbon St",
+    "number": "4545",
+    "unit": "Apartment 45",
+    "zipcode": 70130,
+    "acquisition_date": 2004,
+    "year_built": 1994,
+    "owner_ids": []
+  }
+]

@@ -1,7 +1,7 @@
 import traceback
 from sqlalchemy.orm.session import Session
 from models.car import DbCar
-from models.schemas import CarBase
+from models.schemas import CarBase, UserDisplay
 
 def create_car(request: CarBase, db: Session):
   # print(request)
@@ -32,11 +32,18 @@ def get_car(id: int, db: Session):
   except Exception as e:
     return None
 
-def update_car(id: int, request: CarBase, db: Session):
+def update_car(id: int, request: CarBase, db: Session, current_user: UserDisplay):
   try:
     car = get_car(id, db)
     if car is None:
       return None
+    
+    if current_user.user_type == "member" and len(car.owners) > 1:
+        # Don't update the owners of the car
+        if hasattr(car, "owners"):
+          # Extract IDs from the list of DBPerson objects
+          request.owner_ids = [owner.id for owner in car.owners]
+
     model_dump = request.dict(exclude_unset=True)
     # Update only the provided fields in the reques
     for field, value in model_dump.items():

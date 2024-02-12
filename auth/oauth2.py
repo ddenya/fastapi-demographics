@@ -1,4 +1,5 @@
 from fastapi import Depends, HTTPException, status
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer
 from typing import List, Optional
 from datetime import datetime, timedelta
@@ -6,7 +7,8 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from db.db_connector import get_db
 from db_crud import user as db_user
-from models.schemas import UserBase
+from models.person import DbPerson
+from models.schemas import UserBase, UserDisplay
  
  
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -55,3 +57,36 @@ def check_user_types(required_user_types: list):
             )
         return current_user
     return _check_user_types
+
+def check_user_privileges(current_user: UserDisplay, requested_person_user_id: int):
+    if current_user.user_type == "member" and current_user.id != requested_person_user_id:
+        raise HTTPException(
+            status_code=403,
+            detail=f'User does not have required privileges. User type {current_user.user_type} is only allowed for its own user operations.'
+        )
+    
+
+def check_assets_user_privileges(current_user: UserDisplay, requested_owner_person_ids: List[int],db: Session):
+    print(requested_owner_person_ids)
+    if current_user.user_type == "member":
+        user_ids_owners = [] #user ids of owners(person)
+        for owner in requested_owner_person_ids:
+            person=db.query(DbPerson).filter(DbPerson.id == owner).first()
+            if person is None:
+                raise HTTPException(
+                status_code=404,
+                detail=f'Person with id {owner} not found for this house'
+            )
+            user_ids_owners.append(person.user_id)
+        print(current_user.id)
+        print(user_ids_owners)
+        if current_user.id not in user_ids_owners:
+            raise HTTPException(
+            status_code=403,
+            detail=f'User does not have required privileges. User type {current_user.user_type} is only allowed for its own user operations.'
+        )
+
+    
+
+    
+        

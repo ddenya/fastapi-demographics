@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 from models.associations import people_houses, people_cars
 # TODO refactor later?
 from sqlalchemy.orm import Session
+import models.user
 
 class DbPerson(Base):
   __tablename__ = 'person'
@@ -15,6 +16,8 @@ class DbPerson(Base):
   gender = Column(String)
   email = Column(String)
   nation = Column(String)
+  user_id= Column(Integer, ForeignKey('users.id'))
+  user = relationship("DbUser", back_populates="person")
   houses = relationship('DbHouse', secondary='people_houses', back_populates='owners')
   cars = relationship('DbCar', secondary='people_cars', back_populates='owners')
 
