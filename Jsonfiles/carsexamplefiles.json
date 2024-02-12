@@ -1,0 +1,227 @@
+[
+    {
+      "brand": "Toyota",
+      "model": "Corolla",
+      "type": "Sedan",
+      "color": "Blue",
+      "year": "2020",
+      "owner_ids": []
+    },
+    {
+      "brand": "Honda",
+      "model": "Civic",
+      "type": "Sedan",
+      "color": "Red",
+      "year": "2019",
+      "owner_ids": []
+    },
+    {
+      "brand": "Ford",
+      "model": "Fusion",
+      "type": "Sedan",
+      "color": "Black",
+      "year": "2018",
+      "owner_ids": []
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Malibu",
+      "type": "Sedan",
+      "color": "White",
+      "year": "2017",
+      "owner_ids": []
+    },
+    {
+      "brand": "Nissan",
+      "model": "Altima",
+      "type": "Sedan",
+      "color": "Silver",
+      "year": "2016",
+      "owner_ids": []
+    },
+    {
+      "brand": "Toyota",
+      "model": "Camry",
+      "type": "Sedan",
+      "color": "Gray",
+      "year": "2015",
+      "owner_ids": []
+    },
+    {
+      "brand": "Honda",
+      "model": "Accord",
+      "type": "Sedan",
+      "color": "Blue",
+      "year": "2014",
+      "owner_ids": []
+    },
+    {
+      "brand": "Ford",
+      "model": "Focus",
+      "type": "Hatchback",
+      "color": "Red",
+      "year": "2013",
+      "owner_ids": []
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Cruze",
+      "type": "Sedan",
+      "color": "Black",
+      "year": "2012",
+      "owner_ids": []
+    },
+    {
+      "brand": "Nissan",
+      "model": "Sentra",
+      "type": "Sedan",
+      "color": "White",
+      "year": "2011",
+      "owner_ids": []
+    },
+    {
+      "brand": "Toyota",
+      "model": "Yaris",
+      "type": "Sedan",
+      "color": "Silver",
+      "year": "2010",
+      "owner_ids": []
+    },
+    {
+      "brand": "Honda",
+      "model": "Fit",
+      "type": "Hatchback",
+      "color": "Gray",
+      "year": "2009",
+      "owner_ids": []
+    },
+    {
+      "brand": "Ford",
+      "model": "Fiesta",
+      "type": "Hatchback",
+      "color": "Blue",
+      "year": "2008",
+      "owner_ids": []
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Sonic",
+      "type": "Sedan",
+      "color": "Red",
+      "year": "2007",
+      "owner_ids": []
+    },
+    {
+      "brand": "Nissan",
+      "model": "Versa",
+      "type": "Sedan",
+      "color": "Black",
+      "year": "2006",
+      "owner_ids": []
+    },
+    {
+      "brand": "Toyota",
+      "model": "Prius",
+      "type": "Hybrid",
+      "color": "White",
+      "year": "2005",
+      "owner_ids": []
+    },
+    {
+      "brand": "Honda",
+      "model": "Insight",
+      "type": "Hybrid",
+      "color": "Silver",
+      "year": "2004",
+      "owner_ids": []
+    },
+    {
+      "brand": "Ford",
+      "model": "Escape",
+      "type": "SUV",
+      "color": "Gray",
+      "year": "2003",
+      "owner_ids": []
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Equinox",
+      "type": "SUV",
+      "color": "Blue",
+      "year": "2002",
+      "owner_ids": []
+    },
+    {
+      "brand": "Nissan",
+      "model": "Rogue",
+      "type": "SUV",
+      "color": "Red",
+      "year": "2001",
+      "owner_ids": []
+    },
+    {
+      "brand": "Toyota",
+      "model": "RAV4",
+      "type": "SUV",
+      "color": "Black",
+      "year": "2000",
+      "owner_ids": []
+    },
+    {
+      "brand": "Honda",
+      "model": "CR-V",
+      "type": "SUV",
+      "color": "White",
+      "year": "1999",
+      "owner_ids": []
+    },
+    {
+      "brand": "Ford",
+      "model": "Explorer",
+      "type": "SUV",
+      "color": "Silver",
+      "year": "1998",
+      "owner_ids": []
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Tahoe",
+      "type": "SUV",
+      "color": "Gray",
+      "year": "1997",
+      "owner_ids": []
+    },
+    {
+      "brand": "Nissan",
+      "model": "Pathfinder",
+      "type": "SUV",
+      "color": "Blue",
+      "year": "1996",
+      "owner_ids": []
+    },
+    {
+      "brand": "Toyota",
+      "model": "Highlander",
+      "type": "SUV",
+      "color": "Red",
+      "year": "1995",
+      "owner_ids": []
+    },
+    {
+      "brand": "Honda",
+      "model": "Pilot",
+      "type": "SUV",
+      "color": "Black",
+      "year": "1994",
+      "owner_ids": []
+    },
+    {
+      "brand": "Ford",
+      "model": "Expedition",
+      "type": "SUV",
+      "color": "White",
+      "year": "1993",
+      "owner_ids": []
+    }
+  ]
+  

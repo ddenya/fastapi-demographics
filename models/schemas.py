@@ -46,8 +46,11 @@ class PersonBase(BaseModel):
   gender: Optional[str] = None
   email: Optional[str] = None
   nation: Optional[str] = None
+  ##During creating car and house we can give person ids there.
+  ##So there is no need to put car and houses id s to person base.
   houses_ids: Optional[List[int]] = None
   cars_ids: Optional[List[int]] = None
+  user_id: Optional[int] = None
   class Config:
     use_enum_values = True
 
@@ -89,6 +92,7 @@ class PersonDisplay(BaseModel):
   nation: str
   houses : List[House] = []
   cars : List[Car] = []
+  user_id: Optional[int] = None
   class Config():
     orm_mode=True
 

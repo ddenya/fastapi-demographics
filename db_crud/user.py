@@ -3,19 +3,31 @@ from sqlalchemy.orm.session import Session
 from models.user import DbUser
 from models.schemas import UserBase
 from db.hash import Hash
+from fastapi.responses import JSONResponse
 
 def create_user(request: UserBase, db: Session):
-  new_user = DbUser(
-    username = request.username,
-    email = request.email,
-    password = Hash.bcrypt(request.password),
-    user_type = request.user_type
-  )
-
-  db.add(new_user)
-  db.commit()
-  db.refresh(new_user)
-  return new_user
+    try:
+        user = db.query(DbUser).filter(DbUser.username == request.username).first()
+        if user is not None:
+            return JSONResponse(
+                status_code=409,
+                content={"message": f'User with username {request.username} already exists. Try an unique username!!!'}
+            )
+        new_user = DbUser(
+            username=request.username,
+            email=request.email,
+            password=Hash.bcrypt(request.password),
+            user_type=request.user_type
+        )
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+        return new_user
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f'Internal Server Error okan: {str(e)}'
+        ) 
 
 def get_all_users(db: Session):
   try:
@@ -29,7 +41,7 @@ def get_user(id: int, db: Session):
   except Exception as e:
     return None
   
-  #Ask Denys if getting user by username is logical?
+
 def get_user_by_username(db: Session, username: str):
   user = db.query(DbUser).filter(DbUser.username == username).first()
   if not user:

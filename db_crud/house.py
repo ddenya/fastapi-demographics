@@ -1,7 +1,7 @@
 import traceback
 from sqlalchemy.orm.session import Session
 from models.house import DbHouse
-from models.schemas import HouseBase
+from models.schemas import HouseBase, UserDisplay
 
 def create_house(request: HouseBase, db: Session):
   new_house = DbHouse(
@@ -33,14 +33,21 @@ def get_house(id: int, db: Session):
   except Exception as e:
     return None
 
-def update_house(id: int, request: HouseBase, db: Session):
+def update_house(id: int, request: HouseBase, db: Session, current_user: UserDisplay):
   try:
     # TODO: conversion to str if we pass int? "424242"?
     house = get_house(id, db)
     if house is None:
       return None
+     # If the user type is not "admin" and owner_ids is provided
+    if current_user.user_type == "member" and len(house.owners) > 1:
+        # Don't update the owners of the house
+        if hasattr(house, "owners"):
+          # Extract IDs from the list of DBPerson objects
+          request.owner_ids = [owner.id for owner in house.owners]
+  
     model_dump = request.dict(exclude_unset=True)
-    # Update only the provided fields in the reques
+    # Update only the provided fields in the request
     for field, value in model_dump.items():
       setattr(house, field, value)
     # Check if owner_ids are present in the request before calling the method
