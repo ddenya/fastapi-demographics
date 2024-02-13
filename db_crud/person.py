@@ -1,27 +1,44 @@
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm.session import Session
+from db.hash import Hash
 from models.person import DbPerson
 from models.schemas import PersonBase
+from models.user import DbUser
 
 def create_person(request: PersonBase, db: Session):
     try:
-        person = db.query(DbPerson).filter(DbPerson.user_id == request.user_id).first()
-        if person is not None:
-             return JSONResponse(
-                status_code=409,
-                content={"message": f'Person with user id {request.user_id} has already existed.'}
-            )        
+        # person = db.query(DbPerson).filter(DbPerson.user_id == request.user_id).first()
+        # if person is not None:
+        #      return JSONResponse(
+        #         status_code=409,
+        #         content={"message": f'Person with user id {request.user_id} has already existed.'}
+        #     )
+        
+        new_user = DbUser(
+          username=request.name,
+          email=request.name + "@mail.com",
+          # need to hash the password
+          password = Hash.bcrypt(request.name),
+          user_type = "member"
+          #person = new_person
+        )    
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+
         new_person = DbPerson(
             name=request.name,
             age=request.age,
             gender=request.gender,
             email=request.email,
             nation=request.nation,
-            user_id=request.user_id
+            user_id=new_user.id
         )
+
         new_person.add_houses_by_ids(request.houses_ids, session=db)
         db.add(new_person)
+        
         db.commit()
         db.refresh(new_person)
         return new_person
