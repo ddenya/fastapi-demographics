@@ -50,7 +50,7 @@ class PersonBase(BaseModel):
   ##So there is no need to put car and houses id s to person base.
   houses_ids: Optional[List[int]] = None
   cars_ids: Optional[List[int]] = None
-  user_id: Optional[int] = None
+  #user_id: Optional[int] = None
   class Config:
     use_enum_values = True
 
