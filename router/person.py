@@ -13,9 +13,9 @@ router = APIRouter(
 )
 
 #Create
-@router.post('/', response_model=PersonDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin', 'member']))])
-def create_person(request: PersonBase, db: Session= Depends(get_db), current_user: UserDisplay = Depends(get_current_user)):
-    check_user_privileges(current_user, request.user_id)       
+@router.post('/', response_model=PersonDisplay, status_code=201, dependencies=[Depends(check_user_types(['admin']))])
+def create_person(request: PersonBase, db: Session= Depends(get_db)): #, current_user: UserDisplay = Depends(get_current_user)):
+    #check_user_privileges(current_user, request.user_id)       
     return db_person.create_person(request, db)
 
 # Get 
@@ -41,7 +41,16 @@ def get_all_people(db: Session = Depends(get_db)):
 def update_person(id: int, request: PersonBase, db: Session = Depends(get_db), current_user: UserDisplay = Depends(get_current_user)):
     ##Refactor: If checking privileges after if condition then it means that update operation has already finished
     ##But if checking is here then it meands that if even person doesnot exist its returns 403 prilivileges
-    check_user_privileges(current_user, request.user_id) 
+    #print("current_user_id: " + str(current_user.id))
+    #print("request.user_id: " + str(request.user_id))
+    person = db_person.get_person(id, db)
+    if person is None:
+        return JSONResponse(
+        status_code=404,
+        content={"message": f'Person with id {id} not found okan'},
+    )
+
+    check_user_privileges(current_user, person.user_id) 
     ret = db_person.update_person(id, request, db)
     if ret is None:
         return JSONResponse(
