@@ -64,7 +64,13 @@ def check_user_privileges(current_user: UserDisplay, requested_person_user_id: i
             status_code=403,
             detail=f'User does not have required privileges. User type {current_user.user_type} is only allowed for its own user operations.'
         )
-    
+
+def check_user_operations_privileges(current_user: UserDisplay, requested_user_id: int):
+    if current_user.user_type == "member" and current_user.id != requested_user_id:
+        raise HTTPException(
+            status_code=403,
+            detail=f'User does not have required privileges. User type {current_user.user_type} is only allowed for its own user operations.'
+        )
 
 def check_assets_user_privileges(current_user: UserDisplay, requested_owner_person_ids: List[int],db: Session):
     print(requested_owner_person_ids)
