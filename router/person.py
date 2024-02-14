@@ -1,7 +1,7 @@
 from typing import List
 from fastapi.responses import JSONResponse
 from auth.oauth2 import check_user_privileges, check_user_types, get_current_user
-from models.schemas import PersonBase, PersonDisplay, UserDisplay
+from models.schemas import CarDisplay, HouseDisplay, PersonBase, PersonDisplay, UserDisplay
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from db.db_connector import get_db
@@ -69,3 +69,29 @@ def delete_person(id: int, db:Session=Depends(get_db)):
       content={"message": f'Person with {id} not found'},
   )
   return ret
+
+#Persons/Houses
+
+@router.get("/{id}/houses", response_model=List[HouseDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))])
+def get_person_houses(id: int, db: Session = Depends(get_db), current_user: UserDisplay = Depends(get_current_user)):
+    person = db_person.get_person(id, db)
+    if person is None:
+        return JSONResponse(status_code=404, content={"message": f'Person with id {id} not found'})
+
+    check_user_privileges(current_user, person.user_id)
+    
+    return person.houses
+
+
+
+#Persons/Cars
+
+@router.get("/{id}/cars", response_model=List[CarDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))])
+def get_person_cars(id: int, db: Session = Depends(get_db), current_user: UserDisplay = Depends(get_current_user)):
+    person = db_person.get_person(id, db)
+    if person is None:
+        return JSONResponse(status_code=404, content={"message": f'Person with id {id} not found'})
+
+    check_user_privileges(current_user, person.user_id)
+    
+    return person.cars

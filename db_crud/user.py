@@ -55,8 +55,13 @@ def update_user(id: int, request: UserBase, db: Session):
     user = get_user(id, db)
     if user is None:
       return None
+    
     model_dump = request.dict(exclude_unset=True)
     # Update only the provided fields in the reques
+
+    if 'password' in model_dump:
+      model_dump['password'] = Hash.bcrypt(model_dump['password'])
+
     for field, value in model_dump.items():
       setattr(user, field, value)
     
