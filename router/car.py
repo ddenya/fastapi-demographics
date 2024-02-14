@@ -9,8 +9,8 @@ from db.db_connector import get_db
 from db_crud import car as db_car
 
 router = APIRouter(
-    prefix='/car',
-    tags=['car']
+    prefix='/cars',
+    tags=['cars']
 )
 
 #Create car
