@@ -37,7 +37,7 @@ def get_house(id: int, db: Session = Depends(get_db), current_user: UserDisplay 
     return house
 
 #get all houses
-@router.get('/', response_model=List[HouseDisplay], dependencies=[Depends(check_user_types(['admin', 'member', 'auditor']))])
+@router.get('/', response_model=List[HouseDisplay], dependencies=[Depends(check_user_types(['admin', 'auditor']))])
 def get_all_houses(db: Session=Depends(get_db)):
     return db_house.get_all_houses(db)
 
