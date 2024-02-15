@@ -62,8 +62,17 @@ def update_user(id: int, request: UserBase, db: Session):
     if 'password' in model_dump:
       model_dump['password'] = Hash.bcrypt(model_dump['password'])
 
+    # Check if the new username already exists in the database
+    if 'username' in model_dump:
+        existing_user = db.query(DbUser).filter(DbUser.username == model_dump['username']).first()
+        if existing_user and existing_user.id != id:
+            print("test")
+            return JSONResponse(
+                status_code=409,
+                content={"message": f'User with username {request.username} already exists. Try an unique username!!!'}
+            )
     for field, value in model_dump.items():
-      setattr(user, field, value)
+        setattr(user, field, value)
     
     setattr(user, "id", id)
     db.commit()
