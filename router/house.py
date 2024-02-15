@@ -9,8 +9,8 @@ from db.db_connector import get_db
 from db_crud import house as db_house
 
 router = APIRouter(
-    prefix='/house',
-    tags=['house']
+    prefix='/houses',
+    tags=['Houses']
 )
 
 #Create house
