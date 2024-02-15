@@ -8,8 +8,8 @@ from db.db_connector import get_db
 from db_crud import person as db_person
 
 router = APIRouter(
-    prefix='/person',
-    tags=['person']
+    prefix='/persons',
+    tags=['Persons']
 )
 
 #Create
@@ -32,7 +32,7 @@ def get_person(id: int, db: Session = Depends(get_db), current_user: UserDisplay
     return ret
 
 # Get all
-@router.get('/', response_model=List[PersonDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'auditor', 'member']))])
+@router.get('/', response_model=List[PersonDisplay], status_code=200, dependencies=[Depends(check_user_types(['admin', 'auditor']))])
 def get_all_people(db: Session = Depends(get_db)):
     return db_person.get_all_people(db)
 

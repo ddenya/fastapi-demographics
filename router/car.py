@@ -10,7 +10,7 @@ from db_crud import car as db_car
 
 router = APIRouter(
     prefix='/cars',
-    tags=['cars']
+    tags=['Cars']
 )
 
 #Create car

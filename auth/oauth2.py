@@ -65,15 +65,21 @@ def check_user_privileges(current_user: UserDisplay, requested_person_user_id: i
             detail=f'User does not have required privileges. User type {current_user.user_type} is only allowed for its own user operations.'
         )
 
-def check_user_operations_privileges(current_user: UserDisplay, requested_user_id: int):
+def check_user_operations_privileges(current_user: UserDisplay, requested_user_id: int, requested_role = ""):
     if current_user.user_type == "member" and current_user.id != requested_user_id:
         raise HTTPException(
             status_code=403,
             detail=f'User does not have required privileges. User type {current_user.user_type} is only allowed for its own user operations.'
         )
+    if current_user.user_type == "member" and requested_role == "admin":
+        raise HTTPException(
+            status_code=403,
+            detail=f'User does not have required privileges. User type {current_user.user_type} can not update to admin'
+        )
+
 
 def check_assets_user_privileges(current_user: UserDisplay, requested_owner_person_ids: List[int],db: Session):
-    print(requested_owner_person_ids)
+    #print(requested_owner_person_ids)
     if current_user.user_type == "member":
         user_ids_owners = [] #user ids of owners(person)
         for owner in requested_owner_person_ids:
@@ -85,7 +91,7 @@ def check_assets_user_privileges(current_user: UserDisplay, requested_owner_pers
             )
             user_ids_owners.append(person.user_id)
         print(current_user.id)
-        print(user_ids_owners)
+        # print(user_ids_owners)
         if current_user.id not in user_ids_owners:
             raise HTTPException(
             status_code=403,
