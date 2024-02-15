@@ -69,7 +69,7 @@ def update_user(id: int, request: UserBase, db: Session):
             print("test")
             return JSONResponse(
                 status_code=409,
-                content={"message": f'User with username {request.username} already exists. Try an unique username!!!'}
+                content={"message": f'User with username {request.username} already exists. Try an unique username'}
             )
     for field, value in model_dump.items():
         setattr(user, field, value)
